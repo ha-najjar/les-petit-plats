@@ -1,0 +1,57 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: "Manrope", sans-serif;
+  background-color: #d9d9d9;
+}
+header {
+  background-image: url("assets/image/header-img.png");
+  height: 667px;
+  background-size: cover;
+}
+.search-items h1 {
+  text-align: center;
+  font-family: anton;
+  color: #ffd15b;
+  font-size: 44px;
+  text-shadow: 0 4px 4px black;
+}
+.search-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 954px;
+  margin: auto;
+}
+.search-bar {
+  position: relative;
+  width: 100%;
+}
+.search-items .search-bar input {
+  height: 72px;
+  border-radius: 11px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #7a7a7a;
+  border: 0;
+  box-shadow: black;
+  width: 100%;
+}
+.search-items button {
+  width: 51px;
+  height: 52px;
+  color: #ffffff;
+  background-color: black;
+  border: 0;
+  border-radius: 10px;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+}
+header img {
+  margin-top: 51px;
+  margin-left: 69px;
+}
