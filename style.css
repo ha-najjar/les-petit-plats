@@ -1,11 +1,14 @@
-html,
-body {
+* {
   padding: 0;
   margin: 0;
 }
 body {
   font-family: "Manrope", sans-serif;
   background-color: #d9d9d9;
+}
+#main {
+  max-width: 1240px;
+  margin: 20px auto;
 }
 header {
   background-image: url("assets/image/header-img.png");
@@ -54,4 +57,53 @@ header {
 header img {
   margin-top: 51px;
   margin-left: 69px;
+}
+.recipe-card {
+  background-color: white;
+  border-radius: 21px;
+  margin-bottom: 16px;
+  position: relative;
+  /*height: 731px;*/
+}
+.recipe-card img {
+  border-radius: 21px 21px 0 0;
+  height: 35%;
+  width: 100%;
+}
+.recipe-card h2 {
+  margin-top: 29px;
+  margin-left: 25px;
+  font-weight: 400px;
+  font-family: Anton;
+  font-size: 18px;
+}
+.recipe-card-info {
+  margin: 25px 29px;
+}
+.recipe-card .Temps {
+  width: 65px;
+  height: 26px;
+  border-radius: 14px;
+  background-color: #ffd15b;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  padding-top: 4px;
+  position: absolute;
+  top: 21px;
+  right: 21px;
+}
+.recipe-card h3 {
+  font-weight: bold;
+  font-size: 12px;
+  color: #7a7a7a;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.recipe-card p {
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+.quantity {
+  color: #7a7a7a;
 }
