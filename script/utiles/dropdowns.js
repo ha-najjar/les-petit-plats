@@ -1,12 +1,42 @@
 // Crée les dropdowns pour ingrédients, appareils et ustensiles
-function createDropdowns(recipes) {
-  const ingredientsDropdown = document.createElement("select");
-  const appliancesDropdown = document.createElement("select");
-  const utensilsDropdown = document.createElement("select");
+async function createDropdowns(recipes) {
+  const ingredientsDropdownOptions = document.querySelector(
+    "#options-ingredients"
+  );
+  const appliancesDropdownOptions = document.querySelector(
+    "#options-appliances"
+  );
+  const ustensilsDropdownOptions = document.querySelector("#options-ustensils");
 
-  ingredientsDropdown.id = "ingredients";
-  appliancesDropdown.id = "appliances";
-  utensilsDropdown.id = "utensils";
+  const dropdownOptionIngredient = document.querySelector(
+    "#dropdown-option-ingredient"
+  );
+
+  const ingredientContent = document.querySelector("#ingredient-content");
+
+  const optionIngredientSearch = document.querySelector(
+    "#option-ingredient-search"
+  );
+
+  const dropdownOptionAppliances = document.querySelector(
+    "#dropdown-option-appliances"
+  );
+
+  const appliancesContent = document.querySelector("#appliances-content");
+
+  const optionAppliancesSearch = document.querySelector(
+    "#option-appliances-search"
+  );
+
+  const dropdownOptionUstensils = document.querySelector(
+    "#dropdown-option-ustensils"
+  );
+
+  const ustensilContent = document.querySelector("#ustensils-content");
+
+  const optionUstensilSearch = document.querySelector(
+    "#option-ustensils-search"
+  );
 
   const ingredients = new Set();
   const appliances = new Set();
@@ -20,23 +50,96 @@ function createDropdowns(recipes) {
   });
 
   // Fonction pour ajouter des options à un dropdown
-  function populateDropdown(dropdown, items, defaultValue) {
-    dropdown.innerHTML = `<option value="" selected disabled>${defaultValue}</option>`;
+  async function populateDropdown(dropdown, items) {
+    dropdown.innerHTML = "";
     items.forEach((item) => {
-      const option = document.createElement("option");
+      const option = document.createElement("li");
+      option.classList = "cursor-pointer px-4 py-2";
       option.value = item;
       option.textContent = item;
       dropdown.appendChild(option);
     });
   }
 
-  populateDropdown(ingredientsDropdown, ingredients, "Ingrédients");
-  populateDropdown(appliancesDropdown, appliances, "Appareils");
-  populateDropdown(utensilsDropdown, utensils, "Ustensiles");
+  await populateDropdown(ingredientsDropdownOptions, ingredients);
+  await populateDropdown(appliancesDropdownOptions, appliances);
+  await populateDropdown(ustensilsDropdownOptions, utensils);
 
-  // Ajoute les dropdowns des appareils et ustensiles au DOM
-  const filtersContainer = document.querySelector(".filters-container");
-  filtersContainer.appendChild(ingredientsDropdown);
-  filtersContainer.appendChild(appliancesDropdown);
-  filtersContainer.appendChild(utensilsDropdown);
+  dropdownOptionIngredient.addEventListener("click", () => {
+    ingredientContent.classList.toggle("open");
+    const dropdownBox = dropdownOptionIngredient.parentNode;
+    dropdownBox.classList.toggle("dropdown-box-active");
+    const iconElement = dropdownOptionIngredient.children[1];
+    if (iconElement.classList.contains("fa-chevron-up")) {
+      iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");
+    } else {
+      iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
+    }
+  });
+
+  optionIngredientSearch.addEventListener("keyup", (event) => {
+    if (event.target.value.length > 0) {
+      // Convert Set to Array, filter, and convert back to Set
+      const filteredSet = new Set(
+        Array.from(ingredients).filter((item) =>
+          item.toLowerCase().includes(event.target.value.toLowerCase())
+        )
+      );
+      populateDropdown(ingredientsDropdownOptions, filteredSet);
+    } else {
+      populateDropdown(ingredientsDropdownOptions, ingredients);
+    }
+  });
+
+  dropdownOptionAppliances.addEventListener("click", () => {
+    appliancesContent.classList.toggle("open");
+    const dropdownBox = dropdownOptionAppliances.parentNode;
+    dropdownBox.classList.toggle("dropdown-box-active");
+    const iconElement = dropdownOptionAppliances.children[1];
+    if (iconElement.classList.contains("fa-chevron-up")) {
+      iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");
+    } else {
+      iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
+    }
+  });
+
+  optionAppliancesSearch.addEventListener("keyup", (event) => {
+    if (event.target.value.length > 0) {
+      // Convert Set to Array, filter, and convert back to Set
+      const filteredSet = new Set(
+        Array.from(appliances).filter((item) =>
+          item.toLowerCase().includes(event.target.value.toLowerCase())
+        )
+      );
+      populateDropdown(appliancesDropdownOptions, filteredSet);
+    } else {
+      populateDropdown(appliancesDropdownOptions, appliances);
+    }
+  });
+
+  dropdownOptionUstensils.addEventListener("click", () => {
+    ustensilContent.classList.toggle("open");
+    const dropdownBox = dropdownOptionUstensils.parentNode;
+    dropdownBox.classList.toggle("dropdown-box-active");
+    const iconElement = dropdownOptionUstensils.children[1];
+    if (iconElement.classList.contains("fa-chevron-up")) {
+      iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");
+    } else {
+      iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
+    }
+  });
+
+  optionUstensilSearch.addEventListener("keyup", (event) => {
+    if (event.target.value.length > 0) {
+      // Convert Set to Array, filter, and convert back to Set
+      const filteredSet = new Set(
+        Array.from(utensils).filter((item) =>
+          item.toLowerCase().includes(event.target.value.toLowerCase())
+        )
+      );
+      populateDropdown(ustensilsDropdownOptions, filteredSet);
+    } else {
+      populateDropdown(ustensilsDropdownOptions, utensils);
+    }
+  });
 }

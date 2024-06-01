@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
 }
+
 body {
   font-family: "Manrope", sans-serif;
   background-color: #d9d9d9;
@@ -61,18 +62,77 @@ header img {
   margin-top: 51px;
   margin-left: 69px;
 }
-#ingredients,
-#appliances,
-#utensils {
-  height: 56px;
+.recipes-filters {
+  margin-bottom: 55px;
+}
+
+.dropdown-box {
+  position: relative;
   width: 195px;
   border-radius: 11px;
-  font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 55px;
   margin-right: 55px;
+  padding: 3px;
+  background-color: #ffffff;
+}
+.dropdown-box .dropdown-option {
   padding: 16px;
 }
+.dropdown-box .dropdown-option input {
+  height: 24px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  outline: none;
+}
+.dropdown-box-active {
+  border-radius: 11px 11px 0 0;
+}
+.dropdown-box .content {
+  display: none;
+  position: absolute;
+  top: 88px;
+  left: 0;
+  z-index: 1;
+  background-color: #ffffff;
+  padding-bottom: 16px;
+}
+.dropdown-box .content.open {
+  display: block;
+  margin-top: -27px;
+  border-radius: 0 0 11px 11px;
+}
+.dropdown-box .content .search {
+  position: relative;
+  padding-left: 16px;
+  color: #7a7a7a;
+}
+.dropdown-box .content .search input {
+  border-radius: 2px;
+  height: 36px;
+  border: 1px solid #c6c6c6;
+  width: calc(100% - 16px);
+  outline: none;
+}
+.dropdown-box .content .search .search-icons {
+  position: absolute;
+  right: 22px;
+}
+.dropdown-box .content .options {
+  margin-top: 16px;
+  max-height: 250px;
+  overflow: auto;
+}
+
+.dropdown-box .content .options li:hover {
+  background-color: #ffd15b;
+}
+.recipes-number {
+  font-family: Anton;
+  font-size: 21px;
+  font-weight: 400;
+  margin-top: 31px;
+}
+
 .recipe-card {
   background-color: white;
   border-radius: 21px;

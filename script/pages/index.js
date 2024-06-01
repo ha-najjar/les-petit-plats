@@ -18,6 +18,15 @@ async function displayData(recipes) {
     recipesSection.appendChild(recipeCardDOM);
   });
 }
+function recipesNumber(recipes) {
+  const recipesNumberElement = document.querySelector(".recipes-number");
+  let nbrRecipes = 0;
+  recipes.forEach(() => {
+    nbrRecipes += 1;
+  });
+  console.log(nbrRecipes);
+  recipesNumberElement.textContent = `${nbrRecipes} recettes`;
+}
 
 async function init() {
   document.addEventListener("DOMContentLoaded", () => {
@@ -25,6 +34,7 @@ async function init() {
     displayData(recipes);
     // Appeler la fonction pour créer et remplir les dropdowns
     createDropdowns(recipes);
+    recipesNumber(recipes);
   });
 }
 

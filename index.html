@@ -3,7 +3,7 @@
   <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <!--<link rel="icon" type="image/png" href="assets/favicon.png" />-->
     <link
       href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
       rel="stylesheet"
@@ -38,7 +38,84 @@
       </div>
     </header>
     <main id="main">
-      <div class="filters-container"></div>
+      <div class="recipes-filters flex justify-between">
+        <div class="filters-container grid grid-cols-3 gap-8">
+          <div class="dropdown-box">
+            <div
+              class="dropdown-option flex justify-between items-center"
+              id="dropdown-option-ingredient"
+            >
+              <input
+                type="text"
+                value="Ingrédients"
+                id="so-value-ingredient"
+                readonly
+              />
+              <span class="fa-solid fa-chevron-up"></span>
+            </div>
+            <div class="content" id="ingredient-content">
+              <div class="search flex justify-between items-center">
+                <input type="text" id="option-ingredient-search" />
+                <div class="search-icons flex gap-1">
+                  <i class="fa-solid fa-xmark"></i>
+                  <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                </div>
+              </div>
+              <ul class="options" id="options-ingredients"></ul>
+            </div>
+          </div>
+          <div class="dropdown-box">
+            <div
+              class="dropdown-option flex justify-between items-center"
+              id="dropdown-option-appliances"
+            >
+              <input
+                type="text"
+                value="Appareils"
+                id="so-value-ingredient"
+                readonly
+              />
+              <span class="fa-solid fa-chevron-up"></span>
+            </div>
+            <div class="content" id="appliances-content">
+              <div class="search flex justify-between items-center">
+                <input type="text" id="option-appliances-search" />
+                <div class="search-icons flex gap-1">
+                  <i class="fa-solid fa-xmark"></i>
+                  <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                </div>
+              </div>
+              <ul class="options" id="options-appliances"></ul>
+            </div>
+          </div>
+          <div class="dropdown-box">
+            <div
+              class="dropdown-option flex justify-between items-center"
+              id="dropdown-option-ustensils"
+            >
+              <input
+                type="text"
+                value="Ustensiles"
+                id="so-value-ingredient"
+                readonly
+              />
+              <span class="fa-solid fa-chevron-up"></span>
+            </div>
+            <div class="content" id="ustensils-content">
+              <div class="search flex justify-between items-center">
+                <input type="text" id="option-ustensils-search" />
+                <div class="search-icons flex gap-1">
+                  <i class="fa-solid fa-xmark"></i>
+                  <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                </div>
+              </div>
+              <ul class="options" id="options-ustensils"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="recipes-number"></div>
+      </div>
+      <div class="selected-items"></div>
       <div class="recipes-section grid grid-cols-3 gap-8"></div>
     </main>
     <script src="https://cdn.tailwindcss.com"></script>
