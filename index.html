@@ -57,7 +57,7 @@
               <div class="search flex justify-between items-center">
                 <input type="text" id="option-ingredient-search" />
                 <div class="search-icons flex gap-1">
-                  <i class="fa-solid fa-xmark"></i>
+                  <i class="fa-solid fa-xmark remove-ingredients-search"></i>
                   <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 </div>
               </div>
@@ -81,7 +81,7 @@
               <div class="search flex justify-between items-center">
                 <input type="text" id="option-appliances-search" />
                 <div class="search-icons flex gap-1">
-                  <i class="fa-solid fa-xmark"></i>
+                  <i class="fa-solid fa-xmark remove-appliances-search"></i>
                   <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 </div>
               </div>
@@ -105,7 +105,7 @@
               <div class="search flex justify-between items-center">
                 <input type="text" id="option-ustensils-search" />
                 <div class="search-icons flex gap-1">
-                  <i class="fa-solid fa-xmark"></i>
+                  <i class="fa-solid fa-xmark remove-ustensils-search"></i>
                   <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 </div>
               </div>
@@ -115,8 +115,12 @@
         </div>
         <div class="recipes-number"></div>
       </div>
-      <div class="selected-items"></div>
-      <div class="recipes-section grid grid-cols-3 gap-8"></div>
+      <div class="selected-items grid grid-cols-5 gap-20 mb-5">
+        <div class="selected" id="selected-ingredient"></div>
+        <div class="selected" id="selected-appliance"></div>
+        <div class="selected" id="selected-utensil"></div>
+      </div>
+      <div class="recipes-section grid grid-cols-3 gap-4"></div>
     </main>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="data/recipes.js"></script>

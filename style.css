@@ -132,6 +132,12 @@ header img {
   font-weight: 400;
   margin-top: 31px;
 }
+.selected-items .selected-option {
+  min-width: 141px;
+  padding: 17px 18px;
+  border-radius: 10px;
+  background-color: #ffd15b;
+}
 
 .recipe-card {
   background-color: white;

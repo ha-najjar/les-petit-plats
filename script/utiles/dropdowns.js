@@ -38,6 +38,15 @@ async function createDropdowns(recipes) {
     "#option-ustensils-search"
   );
 
+  const removeIngredientSearch = document.querySelector(
+    ".remove-ingredients-search"
+  );
+  const removeappliancesSearch = document.querySelector(
+    ".remove-appliances-search"
+  );
+  const removeUstensilSearch = document.querySelector(
+    ".remove-ustensils-search"
+  );
   const ingredients = new Set();
   const appliances = new Set();
   const utensils = new Set();
@@ -57,8 +66,40 @@ async function createDropdowns(recipes) {
       option.classList = "cursor-pointer px-4 py-2";
       option.value = item;
       option.textContent = item;
+
+      option.addEventListener("click", () => {
+        displaySelectedItem(dropdown.id, item);
+      });
+
       dropdown.appendChild(option);
     });
+  }
+  // Fonction pour afficher l'élément sélectionné
+  function displaySelectedItem(dropdownId, item) {
+    let selectedElement;
+    if (dropdownId === "options-ingredients") {
+      selectedElement = document.querySelector("#selected-ingredient");
+    } else if (dropdownId === "options-appliances") {
+      selectedElement = document.querySelector("#selected-appliance");
+    } else if (dropdownId === "options-ustensils") {
+      selectedElement = document.querySelector("#selected-utensil");
+    }
+    if (selectedElement) {
+      const badge = document.createElement("div");
+      badge.classList = "selected-option flex justify-between items-center";
+      const badgeText = document.createElement("span");
+      badgeText.textContent = `${item}`;
+      const icon = document.createElement("i");
+      icon.classList = "fa-solid fa-xmark";
+      // Ajout du gestionnaire d'événements pour supprimer le badge lorsqu'on clique sur l'icô
+      icon.addEventListener("click", () => {
+        badge.remove();
+      });
+
+      badge.appendChild(badgeText);
+      badge.appendChild(icon);
+      selectedElement.appendChild(badge);
+    }
   }
 
   await populateDropdown(ingredientsDropdownOptions, ingredients);
@@ -89,6 +130,12 @@ async function createDropdowns(recipes) {
     } else {
       populateDropdown(ingredientsDropdownOptions, ingredients);
     }
+
+    // Event listener for the clear icon
+    removeIngredientSearch.addEventListener("click", () => {
+      optionIngredientSearch.value = ""; // Clear the input field
+      populateDropdown(ingredientsDropdownOptions, ingredients); // Reset the dropdown
+    });
   });
 
   dropdownOptionAppliances.addEventListener("click", () => {
@@ -116,6 +163,11 @@ async function createDropdowns(recipes) {
       populateDropdown(appliancesDropdownOptions, appliances);
     }
   });
+  // Event listener for the clear icon
+  removeappliancesSearch.addEventListener("click", () => {
+    optionAppliancesSearch.value = ""; // Clear the input field
+    populateDropdown(appliancesDropdownOptions, appliances); // Reset the dropdown
+  });
 
   dropdownOptionUstensils.addEventListener("click", () => {
     ustensilContent.classList.toggle("open");
@@ -141,5 +193,18 @@ async function createDropdowns(recipes) {
     } else {
       populateDropdown(ustensilsDropdownOptions, utensils);
     }
+  });
+
+  // Event listener for the clear icon
+  removeUstensilSearch.addEventListener("click", () => {
+    optionUstensilSearch.value = ""; // Clear the input field
+    populateDropdown(ustensilsDropdownOptions, utensils); // Reset the dropdown
+  });
+}
+function selectItems() {
+  const options = document.querySelector(".options");
+  const selectedOptions = document.querySelector(".selected-options");
+  options.addEventListener("click", () => {
+    selectedOptions.appendChild(options);
   });
 }
