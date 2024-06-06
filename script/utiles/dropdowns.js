@@ -1,4 +1,4 @@
-// Crée les dropdowns pour ingrédients, appareils et ustensiles
+// fonction pour la création des dropdowns
 async function createDropdowns(recipes) {
   const ingredientsDropdownOptions = document.querySelector(
     "#options-ingredients"
@@ -230,12 +230,4 @@ async function createDropdowns(recipes) {
 
   // Attacher les événements après avoir peuplé les dropdowns
   attachDropdownEvents();
-}
-
-function selectItems() {
-  const options = document.querySelector(".options");
-  const selectedOptions = document.querySelector(".selected-options");
-  options.addEventListener("click", () => {
-    selectedOptions.appendChild(options);
-  });
 }

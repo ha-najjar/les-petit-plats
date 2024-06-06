@@ -48,7 +48,7 @@ function updateDisplay(filteredRecipes) {
   recipesNumber(filteredRecipes);
 
   // Mettre à jour les dropdowns avec les recettes filtrées
-  //createDropdowns(filteredRecipes);
+  createDropdowns(filteredRecipes);
 }
 
 // Affiche les données des recettes dans la section dédiée sur la page HTML
@@ -94,7 +94,18 @@ async function init() {
       const query = searchInput.value.trim();
       if (query.length >= 3) {
         const filteredRecipes = filterRecipes(recipes, query);
-        updateDisplay(filteredRecipes);
+        if (filteredRecipes.length > 0) {
+          updateDisplay(filteredRecipes);
+        } else {
+          const recipesSection = document.querySelector(".recipes-section");
+          const recipesNotFound = document.querySelector(".recipes-not-found");
+          recipesSection.innerHTML = "";
+          recipesNotFound.innerHTML = `
+                   <p class="text-center font-medium"> « Aucune recette ne contient '${query}' vous pouvez chercher «
+                   tarte aux pommes », « poisson », etc...</p>
+        `;
+          recipesNumber("");
+        }
       } else {
         // Si moins de 3 caractères, réinitialiser l'affichage avec toutes les recettes
         updateDisplay(recipes);
