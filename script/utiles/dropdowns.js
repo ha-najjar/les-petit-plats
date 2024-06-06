@@ -11,9 +11,7 @@ async function createDropdowns(recipes) {
   const dropdownOptionIngredient = document.querySelector(
     "#dropdown-option-ingredient"
   );
-
   const ingredientContent = document.querySelector("#ingredient-content");
-
   const optionIngredientSearch = document.querySelector(
     "#option-ingredient-search"
   );
@@ -21,9 +19,7 @@ async function createDropdowns(recipes) {
   const dropdownOptionAppliances = document.querySelector(
     "#dropdown-option-appliances"
   );
-
   const appliancesContent = document.querySelector("#appliances-content");
-
   const optionAppliancesSearch = document.querySelector(
     "#option-appliances-search"
   );
@@ -31,9 +27,7 @@ async function createDropdowns(recipes) {
   const dropdownOptionUstensils = document.querySelector(
     "#dropdown-option-ustensils"
   );
-
   const ustensilContent = document.querySelector("#ustensils-content");
-
   const optionUstensilSearch = document.querySelector(
     "#option-ustensils-search"
   );
@@ -41,12 +35,13 @@ async function createDropdowns(recipes) {
   const removeIngredientSearch = document.querySelector(
     ".remove-ingredients-search"
   );
-  const removeappliancesSearch = document.querySelector(
+  const removeAppliancesSearch = document.querySelector(
     ".remove-appliances-search"
   );
   const removeUstensilSearch = document.querySelector(
     ".remove-ustensils-search"
   );
+
   const ingredients = new Set();
   const appliances = new Set();
   const utensils = new Set();
@@ -74,6 +69,7 @@ async function createDropdowns(recipes) {
       dropdown.appendChild(option);
     });
   }
+
   // Fonction pour afficher l'élément sélectionné
   function displaySelectedItem(dropdownId, item) {
     let selectedElement;
@@ -84,6 +80,7 @@ async function createDropdowns(recipes) {
     } else if (dropdownId === "options-ustensils") {
       selectedElement = document.querySelector("#selected-utensil");
     }
+
     if (selectedElement) {
       const badge = document.createElement("div");
       badge.classList = "selected-option flex justify-between items-center";
@@ -91,7 +88,8 @@ async function createDropdowns(recipes) {
       badgeText.textContent = `${item}`;
       const icon = document.createElement("i");
       icon.classList = "fa-solid fa-xmark";
-      // Ajout du gestionnaire d'événements pour supprimer le badge lorsqu'on clique sur l'icô
+
+      // Ajout du gestionnaire d'événements pour supprimer le badge lorsqu'on clique sur l'icône
       icon.addEventListener("click", () => {
         badge.remove();
       });
@@ -102,11 +100,41 @@ async function createDropdowns(recipes) {
     }
   }
 
-  await populateDropdown(ingredientsDropdownOptions, ingredients);
-  await populateDropdown(appliancesDropdownOptions, appliances);
-  await populateDropdown(ustensilsDropdownOptions, utensils);
+  // Fonction pour attacher les événements des dropdowns
+  function attachDropdownEvents() {
+    dropdownOptionIngredient.removeEventListener(
+      "click",
+      toggleDropdownIngredient
+    );
+    dropdownOptionAppliances.removeEventListener(
+      "click",
+      toggleDropdownAppliances
+    );
+    dropdownOptionUstensils.removeEventListener(
+      "click",
+      toggleDropdownUstensils
+    );
 
-  dropdownOptionIngredient.addEventListener("click", () => {
+    dropdownOptionIngredient.addEventListener(
+      "click",
+      toggleDropdownIngredient
+    );
+    dropdownOptionAppliances.addEventListener(
+      "click",
+      toggleDropdownAppliances
+    );
+    dropdownOptionUstensils.addEventListener("click", toggleDropdownUstensils);
+
+    optionIngredientSearch.addEventListener("keyup", searchIngredients);
+    optionAppliancesSearch.addEventListener("keyup", searchAppliances);
+    optionUstensilSearch.addEventListener("keyup", searchUstensils);
+
+    removeIngredientSearch.addEventListener("click", clearIngredientSearch);
+    removeAppliancesSearch.addEventListener("click", clearAppliancesSearch);
+    removeUstensilSearch.addEventListener("click", clearUstensilSearch);
+  }
+
+  function toggleDropdownIngredient() {
     ingredientContent.classList.toggle("open");
     const dropdownBox = dropdownOptionIngredient.parentNode;
     dropdownBox.classList.toggle("dropdown-box-active");
@@ -116,29 +144,9 @@ async function createDropdowns(recipes) {
     } else {
       iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
     }
-  });
+  }
 
-  optionIngredientSearch.addEventListener("keyup", (event) => {
-    if (event.target.value.length > 0) {
-      // Convert Set to Array, filter, and convert back to Set
-      const filteredSet = new Set(
-        Array.from(ingredients).filter((item) =>
-          item.toLowerCase().includes(event.target.value.toLowerCase())
-        )
-      );
-      populateDropdown(ingredientsDropdownOptions, filteredSet);
-    } else {
-      populateDropdown(ingredientsDropdownOptions, ingredients);
-    }
-
-    // Event listener for the clear icon
-    removeIngredientSearch.addEventListener("click", () => {
-      optionIngredientSearch.value = ""; // Clear the input field
-      populateDropdown(ingredientsDropdownOptions, ingredients); // Reset the dropdown
-    });
-  });
-
-  dropdownOptionAppliances.addEventListener("click", () => {
+  function toggleDropdownAppliances() {
     appliancesContent.classList.toggle("open");
     const dropdownBox = dropdownOptionAppliances.parentNode;
     dropdownBox.classList.toggle("dropdown-box-active");
@@ -148,28 +156,9 @@ async function createDropdowns(recipes) {
     } else {
       iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
     }
-  });
+  }
 
-  optionAppliancesSearch.addEventListener("keyup", (event) => {
-    if (event.target.value.length > 0) {
-      // Convert Set to Array, filter, and convert back to Set
-      const filteredSet = new Set(
-        Array.from(appliances).filter((item) =>
-          item.toLowerCase().includes(event.target.value.toLowerCase())
-        )
-      );
-      populateDropdown(appliancesDropdownOptions, filteredSet);
-    } else {
-      populateDropdown(appliancesDropdownOptions, appliances);
-    }
-  });
-  // Event listener for the clear icon
-  removeappliancesSearch.addEventListener("click", () => {
-    optionAppliancesSearch.value = ""; // Clear the input field
-    populateDropdown(appliancesDropdownOptions, appliances); // Reset the dropdown
-  });
-
-  dropdownOptionUstensils.addEventListener("click", () => {
+  function toggleDropdownUstensils() {
     ustensilContent.classList.toggle("open");
     const dropdownBox = dropdownOptionUstensils.parentNode;
     dropdownBox.classList.toggle("dropdown-box-active");
@@ -179,11 +168,36 @@ async function createDropdowns(recipes) {
     } else {
       iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
     }
-  });
+  }
 
-  optionUstensilSearch.addEventListener("keyup", (event) => {
+  function searchIngredients(event) {
     if (event.target.value.length > 0) {
-      // Convert Set to Array, filter, and convert back to Set
+      const filteredSet = new Set(
+        Array.from(ingredients).filter((item) =>
+          item.toLowerCase().includes(event.target.value.toLowerCase())
+        )
+      );
+      populateDropdown(ingredientsDropdownOptions, filteredSet);
+    } else {
+      populateDropdown(ingredientsDropdownOptions, ingredients);
+    }
+  }
+
+  function searchAppliances(event) {
+    if (event.target.value.length > 0) {
+      const filteredSet = new Set(
+        Array.from(appliances).filter((item) =>
+          item.toLowerCase().includes(event.target.value.toLowerCase())
+        )
+      );
+      populateDropdown(appliancesDropdownOptions, filteredSet);
+    } else {
+      populateDropdown(appliancesDropdownOptions, appliances);
+    }
+  }
+
+  function searchUstensils(event) {
+    if (event.target.value.length > 0) {
       const filteredSet = new Set(
         Array.from(utensils).filter((item) =>
           item.toLowerCase().includes(event.target.value.toLowerCase())
@@ -193,14 +207,31 @@ async function createDropdowns(recipes) {
     } else {
       populateDropdown(ustensilsDropdownOptions, utensils);
     }
-  });
+  }
 
-  // Event listener for the clear icon
-  removeUstensilSearch.addEventListener("click", () => {
-    optionUstensilSearch.value = ""; // Clear the input field
-    populateDropdown(ustensilsDropdownOptions, utensils); // Reset the dropdown
-  });
+  function clearIngredientSearch() {
+    optionIngredientSearch.value = "";
+    populateDropdown(ingredientsDropdownOptions, ingredients);
+  }
+
+  function clearAppliancesSearch() {
+    optionAppliancesSearch.value = "";
+    populateDropdown(appliancesDropdownOptions, appliances);
+  }
+
+  function clearUstensilSearch() {
+    optionUstensilSearch.value = "";
+    populateDropdown(ustensilsDropdownOptions, utensils);
+  }
+
+  await populateDropdown(ingredientsDropdownOptions, ingredients);
+  await populateDropdown(appliancesDropdownOptions, appliances);
+  await populateDropdown(ustensilsDropdownOptions, utensils);
+
+  // Attacher les événements après avoir peuplé les dropdowns
+  attachDropdownEvents();
 }
+
 function selectItems() {
   const options = document.querySelector(".options");
   const selectedOptions = document.querySelector(".selected-options");

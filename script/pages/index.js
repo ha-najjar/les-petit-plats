@@ -1,45 +1,3 @@
-/*async function getRecipes() {
-  recipes.forEach((recipe) => {
-    console.log(recipe.name);
-  });
-  return recipes;
-}
-
-// Affiche les données des recettes dans la section dédiée sur la page HTML.
-async function displayData(recipes) {
-  // Sélectionne la section HTML où afficher les recettes
-  const recipesSection = document.querySelector(".recipes-section");
-
-  recipes.forEach((recipe) => {
-    // Crée le modèle de recette et récupère l'élément DOM de sa carte recette
-    const recipeModel = recipeTemplate(recipe);
-    const recipeCardDOM = recipeModel.getRecepieCardDOM();
-    // Ajoute la carte recette à la section des recettes
-    recipesSection.appendChild(recipeCardDOM);
-  });
-}
-function recipesNumber(recipes) {
-  const recipesNumberElement = document.querySelector(".recipes-number");
-  let nbrRecipes = 0;
-  recipes.forEach(() => {
-    nbrRecipes += 1;
-  });
-  console.log(nbrRecipes);
-  recipesNumberElement.textContent = `${nbrRecipes} recettes`;
-}
-
-async function init() {
-  document.addEventListener("DOMContentLoaded", () => {
-    // Appeler la fonction pour afficher les données des recettes
-    displayData(recipes);
-    // Appeler la fonction pour créer et remplir les dropdowns
-    createDropdowns(recipes);
-    recipesNumber(recipes);
-  });
-}
-
-init();*/
-
 // Fonction pour filtrer les recettes basées sur la recherche de l'utilisateur en utilisant des boucles natives
 function filterRecipes(recipes, query) {
   const filteredRecipes = [];
@@ -88,6 +46,9 @@ function updateDisplay(filteredRecipes) {
 
   // Mettre à jour le nombre de recettes
   recipesNumber(filteredRecipes);
+
+  // Mettre à jour les dropdowns avec les recettes filtrées
+  //createDropdowns(filteredRecipes);
 }
 
 // Affiche les données des recettes dans la section dédiée sur la page HTML
@@ -122,10 +83,15 @@ async function init() {
     createDropdowns(recipes);
     recipesNumber(recipes);
 
-    // Ajouter un écouteur d'événement pour la barre de recherche
-    const searchBar = document.querySelector(".search-bar input");
-    searchBar.addEventListener("keyup", (event) => {
-      const query = event.target.value;
+    // Ajouter un écouteur d'événement pour le bouton de recherche
+    const searchButton = document.querySelector("#search-button");
+    const searchInput = document.querySelector("#search-input");
+
+    // Ajouter un écouteur d'événement pour le bouton de recherche
+
+    searchButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      const query = searchInput.value.trim();
       if (query.length >= 3) {
         const filteredRecipes = filterRecipes(recipes, query);
         updateDisplay(filteredRecipes);

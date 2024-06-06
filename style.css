@@ -46,6 +46,7 @@ header {
   box-shadow: black;
   width: 100%;
   padding-left: 35px;
+  outline: none;
 }
 .search-items button {
   width: 51px;
