@@ -130,7 +130,7 @@ async function init() {
       event.preventDefault();
       const query = searchInput.value;
 
-      if (query.length >= 3) {
+      if (query.length >= 3 || searchInput.value === "") {
         const selectedItems = document.querySelectorAll(".selected-item-value");
         const selectedItemsValues = Array.from(selectedItems).map(
           (element) => element.textContent
