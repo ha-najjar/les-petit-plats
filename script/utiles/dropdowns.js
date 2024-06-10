@@ -86,6 +86,7 @@ async function createDropdowns(recipes) {
       badge.classList = "selected-option flex justify-between items-center";
       const badgeText = document.createElement("span");
       badgeText.textContent = `${item}`;
+      badgeText.classList = "selected-item-value";
       const icon = document.createElement("i");
       icon.classList = "fa-solid fa-xmark";
 
@@ -97,6 +98,19 @@ async function createDropdowns(recipes) {
       badge.appendChild(badgeText);
       badge.appendChild(icon);
       selectedElement.appendChild(badge);
+
+      const selectedItems = document.querySelectorAll(".selected-item-value");
+      const selectedItemsValues = Array.from(selectedItems).map(
+        (element) => element.textContent
+      );
+
+      const searchInput = document.querySelector("#search-input");
+      if (searchInput.value.length >= 3 || searchInput.value === "") {
+        selectedItemsValues.push(searchInput.value);
+      }
+
+      filterRecipes(recipes, selectedItemsValues);
+      console.log(selectedItemsValues);
     }
   }
 
