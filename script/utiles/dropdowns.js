@@ -62,7 +62,8 @@ async function createDropdowns(recipes) {
       option.value = item;
       option.textContent = item;
 
-      option.addEventListener("click", () => {
+      option.addEventListener("click", (event) => {
+        event.preventDefault();
         displaySelectedItem(dropdown.id, item);
       });
 
