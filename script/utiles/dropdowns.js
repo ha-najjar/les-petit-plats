@@ -62,14 +62,14 @@ async function createDropdowns(recipes) {
       option.value = item;
       option.textContent = item;
 
+      dropdown.appendChild(option);
+
       option.addEventListener("click", (event) => {
         event.preventDefault;
         displaySelectedItem(dropdown.id, item);
         updateSearchResults(); // Ajout de cette ligne
         closeDropdown(dropdown);
       });
-
-      dropdown.appendChild(option);
     });
   }
 
@@ -120,28 +120,40 @@ async function createDropdowns(recipes) {
 
   // Fonction pour attacher les événements des dropdowns
   function attachDropdownEvents() {
-    dropdownOptionIngredient.removeEventListener(
-      "click",
-      toggleDropdownIngredient
-    );
-    dropdownOptionAppliances.removeEventListener(
-      "click",
-      toggleDropdownAppliances
-    );
-    dropdownOptionUstensils.removeEventListener(
-      "click",
-      toggleDropdownUstensils
-    );
+    dropdownOptionIngredient.addEventListener("click", () => {
+      openDropdown(dropdownOptionIngredient);
 
-    dropdownOptionIngredient.addEventListener(
-      "click",
-      toggleDropdownIngredient
-    );
-    dropdownOptionAppliances.addEventListener(
-      "click",
-      toggleDropdownAppliances
-    );
-    dropdownOptionUstensils.addEventListener("click", toggleDropdownUstensils);
+      // Accéder à l'élément ul correspondant
+      const ulApp = document.querySelector("#appliances-content .options");
+      console.log("ulApp", ulApp);
+
+      closeDropdown(ulApp);
+
+      const ulUstensils = document.querySelector("#ustensils-content .options");
+      closeDropdown(ulUstensils);
+    });
+    dropdownOptionAppliances.addEventListener("click", () => {
+      openDropdown(dropdownOptionAppliances);
+
+      // Accéder à l'élément ul correspondant
+      const ulIng = document.querySelector("#ingredient-content .options");
+
+      closeDropdown(ulIng);
+
+      const ulUstensils = document.querySelector("#ustensils-content .options");
+      closeDropdown(ulUstensils);
+    });
+    dropdownOptionUstensils.addEventListener("click", () => {
+      openDropdown(dropdownOptionUstensils);
+
+      // Accéder à l'élément ul correspondant
+      const ulApp = document.querySelector("#appliances-content .options");
+
+      closeDropdown(ulApp);
+
+      const ulIng = document.querySelector("#ingredient-content .options");
+      closeDropdown(ulIng);
+    });
 
     optionIngredientSearch.addEventListener("keyup", searchIngredients);
     optionAppliancesSearch.addEventListener("keyup", searchAppliances);
@@ -161,55 +173,26 @@ async function createDropdowns(recipes) {
     });
   }
 
-  function toggleDropdownIngredient(event) {
-    event.stopPropagation();
-
-    ingredientContent.classList.toggle("open");
-    const dropdownBox = dropdownOptionIngredient.parentNode;
-    dropdownBox.classList.toggle("dropdown-box-active");
-    const iconElement = dropdownOptionIngredient.children[1];
-    if (iconElement.classList.contains("fa-chevron-up")) {
-      iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");
-    } else {
-      iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
-    }
-  }
-
   function closeDropdown(dropdown) {
     dropdown.parentNode.classList.remove("open");
-    const iconElement = dropdown.parentNode.querySelector(".dropdown-option i");
-    if (iconElement.classList.contains("fa-chevron-up")) {
-      iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");
-    }
-    dropdown.classList.remove("dropdown-box-active");
+
+    /*const iconElement =
+      dropdown.parentElement.parentElement.querySelector(".fa-chevron-down");
+    console.log(iconElement);
+    iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");*/
+    dropdown.parentNode.parentNode.classList.remove("dropdown-box-active");
   }
+  function openDropdown(dropdownOption) {
+    // Accéder à l'élément parent de `dropdownOption`
+    const parent = dropdownOption.parentElement;
 
-  function toggleDropdownAppliances(event) {
-    event.stopPropagation();
+    // Trouver l'élément `.content` à l'intérieur du parent
+    const dropdownContent = parent.querySelector(".content");
+    dropdownContent.classList.add("open");
+    /*const iconElement = parent.querySelector(".fa-chevron-up");
+    iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");*/
 
-    appliancesContent.classList.toggle("open");
-    const dropdownBox = dropdownOptionAppliances.parentNode;
-    dropdownBox.classList.toggle("dropdown-box-active");
-    const iconElement = dropdownOptionAppliances.children[1];
-    if (iconElement.classList.contains("fa-chevron-up")) {
-      iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");
-    } else {
-      iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
-    }
-  }
-
-  function toggleDropdownUstensils(event) {
-    event.stopPropagation();
-
-    ustensilContent.classList.toggle("open");
-    const dropdownBox = dropdownOptionUstensils.parentNode;
-    dropdownBox.classList.toggle("dropdown-box-active");
-    const iconElement = dropdownOptionUstensils.children[1];
-    if (iconElement.classList.contains("fa-chevron-up")) {
-      iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");
-    } else {
-      iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");
-    }
+    parent.classList.add("dropdown-box-active");
   }
 
   function searchIngredients(event) {
