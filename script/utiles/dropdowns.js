@@ -117,41 +117,24 @@ async function createDropdowns(recipes) {
       console.log(selectedItemsValues);
     }
   }
-
+  const ulApp = document.querySelector("#appliances-content .options");
+  const ulUstensils = document.querySelector("#ustensils-content .options");
+  const ulIng = document.querySelector("#ingredient-content .options");
   // Fonction pour attacher les événements des dropdowns
   function attachDropdownEvents() {
     dropdownOptionIngredient.addEventListener("click", () => {
       openDropdown(dropdownOptionIngredient);
-
-      // Accéder à l'élément ul correspondant
-      const ulApp = document.querySelector("#appliances-content .options");
-      console.log("ulApp", ulApp);
-
       closeDropdown(ulApp);
-
-      const ulUstensils = document.querySelector("#ustensils-content .options");
       closeDropdown(ulUstensils);
     });
     dropdownOptionAppliances.addEventListener("click", () => {
       openDropdown(dropdownOptionAppliances);
-
-      // Accéder à l'élément ul correspondant
-      const ulIng = document.querySelector("#ingredient-content .options");
-
       closeDropdown(ulIng);
-
-      const ulUstensils = document.querySelector("#ustensils-content .options");
       closeDropdown(ulUstensils);
     });
     dropdownOptionUstensils.addEventListener("click", () => {
       openDropdown(dropdownOptionUstensils);
-
-      // Accéder à l'élément ul correspondant
-      const ulApp = document.querySelector("#appliances-content .options");
-
       closeDropdown(ulApp);
-
-      const ulIng = document.querySelector("#ingredient-content .options");
       closeDropdown(ulIng);
     });
 
@@ -173,13 +156,32 @@ async function createDropdowns(recipes) {
     });
   }
 
+  // Fonction pour fermer les dropdowns en cliquant à l'extérieur
+  function handleClickOutside(event) {
+    if (
+      !ingredientContent.contains(event.target) &&
+      !dropdownOptionIngredient.contains(event.target)
+    ) {
+      closeDropdown(ulIng);
+    }
+    if (
+      !appliancesContent.contains(event.target) &&
+      !dropdownOptionAppliances.contains(event.target)
+    ) {
+      closeDropdown(ulApp);
+    }
+    if (
+      !ustensilContent.contains(event.target) &&
+      !dropdownOptionUstensils.contains(event.target)
+    ) {
+      closeDropdown(ulUstensils);
+    }
+  }
+
+  document.addEventListener("click", handleClickOutside);
+
   function closeDropdown(dropdown) {
     dropdown.parentNode.classList.remove("open");
-
-    /*const iconElement =
-      dropdown.parentElement.parentElement.querySelector(".fa-chevron-down");
-    console.log(iconElement);
-    iconElement.classList.replace("fa-chevron-down", "fa-chevron-up");*/
     dropdown.parentNode.parentNode.classList.remove("dropdown-box-active");
   }
   function openDropdown(dropdownOption) {
@@ -189,9 +191,6 @@ async function createDropdowns(recipes) {
     // Trouver l'élément `.content` à l'intérieur du parent
     const dropdownContent = parent.querySelector(".content");
     dropdownContent.classList.add("open");
-    /*const iconElement = parent.querySelector(".fa-chevron-up");
-    iconElement.classList.replace("fa-chevron-up", "fa-chevron-down");*/
-
     parent.classList.add("dropdown-box-active");
   }
 
