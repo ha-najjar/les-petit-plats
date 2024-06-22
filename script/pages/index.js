@@ -40,6 +40,7 @@ function recipesNumber(recipes) {
 
 // Fonction pour mettre à jour les résultats de recherche
 function updateSearchResults() {
+  const recipesNotFound = document.querySelector(".recipes-not-found");
   const selectedItems = document.querySelectorAll(".selected-item-value");
   const selectedItemsValues = Array.from(selectedItems).map(
     (element) => element.textContent
@@ -53,9 +54,9 @@ function updateSearchResults() {
   const filteredRecipes = filterRecipes(recipes, selectedItemsValues);
   if (filteredRecipes.length > 0) {
     updateDisplay(filteredRecipes);
+    recipesNotFound.innerHTML = "";
   } else {
     const recipesSection = document.querySelector(".recipes-section");
-    const recipesNotFound = document.querySelector(".recipes-not-found");
     recipesSection.innerHTML = "";
     recipesNotFound.innerHTML = `
                  <p class="text-center font-medium"> « Aucune recette ne contient '${searchInput.value}' vous pouvez chercher «

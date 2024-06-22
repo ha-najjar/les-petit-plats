@@ -54,11 +54,11 @@ async function createDropdowns(recipes) {
   });
 
   // Fonction pour ajouter des options à un dropdown
-  async function populateDropdown(dropdown, items) {
+  /*async function populateDropdown(dropdown, items) {
     dropdown.innerHTML = "";
     items.forEach((item) => {
       const option = document.createElement("li");
-      option.classList = "cursor-pointer px-4 py-2";
+      option.classList = "cursor-pointer px-4 py-2 option";
       option.value = item;
       option.textContent = item;
 
@@ -67,8 +67,61 @@ async function createDropdowns(recipes) {
       option.addEventListener("click", (event) => {
         event.preventDefault;
         displaySelectedItem(dropdown.id, item);
-        updateSearchResults(); // Ajout de cette ligne
+        updateSearchResults();
         closeDropdown(dropdown);
+      });
+    });
+  }*/
+
+  // Fonction pour ajouter des options à un dropdown
+  async function populateDropdown(dropdown, items) {
+    dropdown.innerHTML = "";
+
+    items.forEach((item) => {
+      const option = document.createElement("li");
+      option.classList = "cursor-pointer px-4 py-2 option";
+      option.value = item;
+      option.textContent = item;
+
+      // Vérifiez si l'élément est déjà sélectionné
+      const selectedItemsValues = Array.from(
+        document.querySelectorAll(".selected-item-value")
+      ).map((element) => element.textContent);
+      if (selectedItemsValues.includes(item)) {
+        option.classList.add("selected-item-options");
+
+        // Ajouter un Xmark pour l'élément sélectionné
+        const xmark = document.createElement("span");
+        xmark.classList = "xmark";
+        xmark.innerHTML = "&times;"; // HTML entity for '×'
+        option.appendChild(xmark);
+
+        // Ajouter un gestionnaire d'événement pour le clic sur le Xmark
+        xmark.addEventListener("click", (event) => {
+          event.stopPropagation();
+          option.classList.remove("selected-option-background");
+          xmark.remove();
+
+          const badges = document.querySelectorAll(".selected-option");
+          badges.forEach((badge) => {
+            if (badge.textContent.trim() === item) {
+              badge.remove();
+            }
+          });
+
+          updateSearchResults();
+        });
+      }
+      dropdown.appendChild(option);
+
+      option.addEventListener("click", (event) => {
+        event.preventDefault();
+        displaySelectedItem(dropdown.id, item);
+        updateSearchResults();
+        closeDropdown(dropdown);
+
+        // Ajouter la classe de fond à l'élément sélectionné
+        option.classList.add("selected-item-options");
       });
     });
   }
@@ -85,6 +138,17 @@ async function createDropdowns(recipes) {
     }
 
     if (selectedElement) {
+      const existingSelectedItems = document.querySelectorAll(
+        ".selected-item-value"
+      );
+      const selectedItemsValues = Array.from(existingSelectedItems).map(
+        (element) => element.textContent
+      );
+
+      // Vérifier si l'élément est déjà sélectionné
+      if (selectedItemsValues.includes(item)) {
+        return;
+      }
       const badge = document.createElement("div");
       badge.classList = "selected-option flex justify-between items-center";
       const badgeText = document.createElement("span");
@@ -102,11 +166,6 @@ async function createDropdowns(recipes) {
       badge.appendChild(badgeText);
       badge.appendChild(icon);
       selectedElement.appendChild(badge);
-
-      const selectedItems = document.querySelectorAll(".selected-item-value");
-      const selectedItemsValues = Array.from(selectedItems).map(
-        (element) => element.textContent
-      );
 
       const searchInput = document.querySelector("#search-input");
       if (searchInput.value.length >= 3 || searchInput.value === "") {

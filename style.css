@@ -148,6 +148,7 @@ header img {
 .dropdown-box .content .options li:hover {
   background-color: #ffd15b;
 }
+
 .recipes-number {
   font-family: Anton;
   font-size: 21px;
@@ -159,6 +160,26 @@ header img {
   padding: 17px 18px;
   border-radius: 10px;
   background-color: #ffd15b;
+}
+.selected-item-options {
+  background-color: #ffd15b;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.xmark {
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #ffd15b;
+  border-radius: 100%;
+  background-color: black;
+  height: 17px;
+  width: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .recipe-card {
