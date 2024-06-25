@@ -54,26 +54,6 @@ async function createDropdowns(recipes) {
   });
 
   // Fonction pour ajouter des options à un dropdown
-  /*async function populateDropdown(dropdown, items) {
-    dropdown.innerHTML = "";
-    items.forEach((item) => {
-      const option = document.createElement("li");
-      option.classList = "cursor-pointer px-4 py-2 option";
-      option.value = item;
-      option.textContent = item;
-
-      dropdown.appendChild(option);
-
-      option.addEventListener("click", (event) => {
-        event.preventDefault;
-        displaySelectedItem(dropdown.id, item);
-        updateSearchResults();
-        closeDropdown(dropdown);
-      });
-    });
-  }*/
-
-  // Fonction pour ajouter des options à un dropdown
   async function populateDropdown(dropdown, items) {
     dropdown.innerHTML = "";
 
@@ -99,7 +79,6 @@ async function createDropdowns(recipes) {
         // Ajouter un gestionnaire d'événement pour le clic sur le Xmark
         xmark.addEventListener("click", (event) => {
           event.stopPropagation();
-          option.classList.remove("selected-option-background");
           xmark.remove();
 
           const badges = document.querySelectorAll(".selected-option");
